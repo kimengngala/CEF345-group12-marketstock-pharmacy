@@ -14,3 +14,16 @@ for (const product of lowStock) {
 
 const stockValue = products.reduce((total, product) => total + (product.qty * product.buy), 0);
 console.log(`Total stock value: ${stockValue}`);
+
+const profitPerUnit = (p) => p.sell - p.buy;
+const best = products.reduce((a, b) => (profitPerUnit(a) > profitPerUnit(b)) ? a : b);
+console.log(`Best product to sell: ${best.name} (Profit per unit: ${profitPerUnit(best)})`);
+
+const outOfStock = products.filter(product => product.qty === 0);
+console.log("Products out of stock:");
+for (const product of outOfStock) {
+    console.log(`${product.name}`);
+}
+const sellValue = products.reduce((total, product) => total + (product.qty * product.sell), 0);
+console.log(`Total potential sell value: ${sellValue}`);
+console.log(`Total potential profit: ${sellValue - stockValue}`);
